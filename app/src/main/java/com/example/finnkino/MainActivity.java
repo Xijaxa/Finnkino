@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private Date dateAfter;
     private Filter filters;
     private ArrayList<Event> selectedEventList = new ArrayList<>();
+    private String username;
 
 
     @Override
@@ -56,10 +57,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-        // Changing title colour to black
-        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" +
-                getString(R.string.app_name) + "</font>"));
 
         // Making default filters
         filters = new Filter();
@@ -71,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         filters.setTheaterPosition(0);
         filters.setMoviePosition(0);
 
+        Intent intent = getIntent();
+        username = intent.getStringExtra("EXTRA");
         eventList = new ArrayList<>();
         listViewMovie = findViewById(R.id.ListView);
         populateEventList("1029", formatter.format(date), eventList);
@@ -87,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     public void loadMenu (View v) {
         Intent intent = new Intent(MainActivity.this, MenuActivity.class);
         intent.putExtra("eventsHome", selectedEventList);
+        intent.putExtra("userName", username);
         startActivityForResult(intent, 2);
     }
 
@@ -187,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
+
 
             // Adding the events in eventList to listview
             ArrayAdapter<Event> movieAdapter = new ArrayAdapter<Event>(this,

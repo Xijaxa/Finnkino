@@ -55,9 +55,6 @@ public class FilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
 
-        // Changing title colour to black
-        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font>"));
-
         MovieTheaters movieTheaters = MovieTheaters.getInstance();
         theaterList = movieTheaters.getTheaterList();
         movieList = new ArrayList<>();

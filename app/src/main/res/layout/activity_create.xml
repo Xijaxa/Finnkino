@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/finder"
+        android:text="FinnkinoFinder"
+        android:layout_margin="30dp"
+        android:textColor="#D5CC26"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_below="@id/logoImageView"/>
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/img"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/userNam1"
+        android:layout_below="@id/finder"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:hint="Username: "
+        android:background="#808080"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/psw1"
+        android:layout_below="@id/userNam1"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:hint="Password: "
+        android:background="#808080"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:inputType="textPassword"
+        android:drawableLeft="@drawable/ic_baseline_lock_24"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/repsw"
+        android:layout_below="@id/psw1"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:hint="Enter password again: "
+        android:background="#808080"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:inputType="textPassword"
+        android:drawableLeft="@drawable/ic_baseline_lock_24"
+        />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/repsw"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#808080"
+        android:text="register"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/btnRegister"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#808080"
+        android:text="Cancel"
+        android:textColor="@color/black" />
+
+</RelativeLayout>

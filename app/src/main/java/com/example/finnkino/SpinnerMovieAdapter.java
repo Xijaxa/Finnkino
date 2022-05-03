@@ -24,8 +24,6 @@ public class SpinnerMovieAdapter extends ArrayAdapter<Movie> {
         layoutInflater = LayoutInflater.from(context);
     }
 
-
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -41,8 +39,6 @@ public class SpinnerMovieAdapter extends ArrayAdapter<Movie> {
         }
         return rowView;
     }
-
-
 
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

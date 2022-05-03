@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+// Populates the list with selected event lists and also removes them when clicked
 public class SelectedEventActivity extends AppCompatActivity {
 
     private ArrayList<Event> selectedEventList;
@@ -22,12 +23,7 @@ public class SelectedEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_events);
-
-        // Changing title colour to black
-        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" +
-                getString(R.string.app_name) + "</font>"));
         selectedEventList =  (ArrayList<Event>) getIntent().getSerializableExtra("eventsMenu2");
-
         listViewEvent = findViewById(R.id.ListView);
         populateSelectedEventList(selectedEventList);
     }

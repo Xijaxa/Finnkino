@@ -30,12 +30,12 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonHome" />
 
     <Button
-        android:id="@+id/buttonCalendar"
+        android:id="@+id/buttonEvents"
         android:layout_width="128dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:onClick="loadSelectedEvents"
-        android:text="Calendar"
+        android:text="Events"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,6 +51,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonCalendar" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonEvents" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

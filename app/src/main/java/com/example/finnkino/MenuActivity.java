@@ -12,15 +12,18 @@ import java.util.ArrayList;
 public class MenuActivity extends AppCompatActivity {
 
     private ArrayList<Event> selectedEventList;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        // Changing title colour to black
-        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font>"));
         selectedEventList = new ArrayList<>();
         selectedEventList =  (ArrayList<Event>) getIntent().getSerializableExtra("eventsHome");
+        Intent intent = getIntent();
+        username = intent.getStringExtra("userName");
+        System.out.println("########## " + username +"###############");
+
     }
 
     public void loadHome (View v) {
@@ -31,11 +34,12 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void loadProfile (View v) {
-        Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+        Intent intent = new Intent(MenuActivity.this, ProfileInfoActivity.class);
+        intent.putExtra("userName2", username);
         startActivity(intent);
     }
     public void loadLogout (View v) {
-        Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+        Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 

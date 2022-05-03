@@ -11,12 +11,18 @@
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/drawable/ic_person_foreground.xml" value="0.3165" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_calendar.xml" value="0.18" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_calendar2.xml" value="0.31354166666666666" />
+        <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_create.xml" value="0.22441742654508612" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_filter.xml" value="0.25" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_listview.xml" value="0.35597826086956524" />
+        <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_login2.xml" value="0.1" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_mainDraw.xml" value="0.2695035460992908" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_menu.xml" value="0.1" />
+        <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_profile.xml" value="0.2671875" />
+        <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_profile_info.xml" value="0.1" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_selected_events.xml" value="0.28125" />
+        <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/activity_splash_screen.xml" value="0.22441742654508612" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/app_bar_main.xml" value="0.25" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/calendar_cell.xml" value="0.31354166666666666" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/content_main.xml" value="0.31354166666666666" />
@@ -25,7 +31,7 @@
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/fragment_filter.xml" value="0.2695035460992908" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/fragment_slideshow.xml" value="0.2776268115942029" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/list_cell.xml" value="0.25" />
-        <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/list_yellow_text.xml" value="0.31929347826086957" />
+        <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/list_yellow_text.xml" value="0.25" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/nav_header_main.xml" value="0.2776268115942029" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/navigation_view.xml" value="0.2776268115942029" />
         <entry key="..\:/Users/ARSKA/AndroidStudioProjects/Finnkino/app/src/main/res/layout/spinner_style.xml" value="0.31354166666666666" />

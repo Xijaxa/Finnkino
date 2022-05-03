@@ -41,9 +41,12 @@ public class MovieTheaters {
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
-                    String id = element.getElementsByTagName("ID").item(0).getTextContent();
-                    String place = element.getElementsByTagName("Name").item(0).getTextContent();
+                    String id = element.getElementsByTagName("ID").item(0)
+                            .getTextContent();
+                    String place = element.getElementsByTagName("Name").item(0)
+                            .getTextContent();
                     MovieTheater theater = new MovieTheater(id, place);
+
                     theaterList.add(theater);
                 }
             }

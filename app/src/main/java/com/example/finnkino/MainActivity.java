@@ -1,15 +1,27 @@
 package com.example.finnkino;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.Html;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
+
+
+import android.widget.Toolbar;
+
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -26,145 +38,179 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    String chosenDate;
-    String timeBefore;
-    String timeAfter;
-    Spinner spinnerTheater;
-    ListView listViewMovie;
-    EditText editDate;
-    EditText editAfter;
-    EditText editBefore;
-    ArrayList<MovieTheater> theaterList;
-
-    SimpleDateFormat formatter= new SimpleDateFormat("dd.MM.yyyy");
-    SimpleDateFormat formatter2= new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-    SimpleDateFormat formatter3= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    Date date = new Date(System.currentTimeMillis());
-    Date dateNow = new Date(System.currentTimeMillis());
-    Date date2;
-    Date dateBefore;
-    Date dateAfter;
+    private ListView listViewMovie;
+    private ArrayList<Event> eventList;
+    private final SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+    private final SimpleDateFormat formatter2 = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    private final SimpleDateFormat formatter3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private Date date = new Date(System.currentTimeMillis());
+    private Date dateBefore;
+    private Date dateAfter;
+    private Filter filters;
+    private ArrayList<Event> selectedEventList = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        MovieTheaters movieTheaters = MovieTheaters.getInstance();
-        theaterList = movieTheaters.getTheaterList();
+        // Changing title colour to black
+        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" +
+                getString(R.string.app_name) + "</font>"));
 
-        editDate = (EditText) findViewById(R.id.editTextDate);
-        editAfter = (EditText) findViewById(R.id.editTextStartAfter);
-        editBefore = (EditText) findViewById(R.id.editTextStartBefore);
-        spinnerTheater = (Spinner) findViewById(R.id.spinner);
-        listViewMovie = (ListView) findViewById(R.id.ListView);
+        // Making default filters
+        filters = new Filter();
+        filters.setDate(formatter.format(date));
+        filters.setMovie("Valitse elokuva");
+        filters.setTimeAfter("00:00");
+        filters.setTimeBefore("23:59");
+        filters.setTheater("1029");
+        filters.setTheaterPosition(0);
+        filters.setMoviePosition(0);
 
-        populateSpinnerTheater(spinnerTheater);
-        populateMovieList("1029", formatter.format(date));
+        eventList = new ArrayList<>();
+        listViewMovie = findViewById(R.id.ListView);
+        populateEventList("1029", formatter.format(date), eventList);
 
-
-        spinnerTheater.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                MovieTheater theater = (MovieTheater) adapterView.getSelectedItem();
-                chosenDate = editDate.getText().toString();
-                    try {
-                        date = formatter.parse(chosenDate);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                        date = dateNow;
-                    }
-                    populateMovieList(theater.getID(), formatter.format(date));
-
-                }
+    }
 
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+    public void loadActivity (View v) {
+        Intent intent = new Intent(MainActivity.this, FilterActivity.class);
+        intent.putExtra("filters", filters);
+        startActivityForResult(intent, 1);
+    }
+
+    public void loadMenu (View v) {
+        Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+        intent.putExtra("eventsHome", selectedEventList);
+        startActivityForResult(intent, 2);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                filters = (Filter) data.getSerializableExtra("filters");
+                populateEventList(filters.getTheater(), filters.getDate(), eventList);
 
             }
-        });
-
-
-
+        } else if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                selectedEventList = (ArrayList<Event>) data.getSerializableExtra("eventsMenu");
+            }
+        }
     }
 
-    private void populateSpinnerTheater(Spinner spinner) {
-        ArrayAdapter<MovieTheater> locationAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, theaterList);
-        locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(locationAdapter);
-    }
+    // Finding events using Finnkino xml data and adding it to list then displaying on listview
+    // based on filters
+    private void populateEventList(String ID, String date, ArrayList<Event> eventList) {
+        eventList.clear();
+        Event event;
 
-
-    private void populateMovieList(String ID, String date) {
-        ArrayList<String> movieList = new ArrayList<String>();
+        // Setup for time comparisons
         Date date3 = null;
         try {
             date3 = formatter.parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        try {
 
-            dateBefore = formatter2.parse(formatter.format(date3).toString() + " " + editBefore.getText().toString());
-            timeBefore = dateBefore.toString();
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-            timeBefore = "";
-        }
-        try {
-            dateAfter = formatter2.parse(formatter.format(date3).toString() + " " + editAfter.getText().toString());
-            timeAfter = dateAfter.toString();
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-            timeAfter = "";
-        }
+        // Searching the xml data and parsing the time filters
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             String urlString = "https://www.finnkino.fi/xml/Schedule/?area=" + ID +  "&dt=" + date;
             Document doc = builder.parse(urlString);
             doc.getDocumentElement().normalize();
             NodeList nodeList = doc.getDocumentElement().getElementsByTagName("Show");
+            String timeBefore;
+            try {
+                dateBefore = formatter2.parse(formatter.format(date3) + " " +
+                        filters.getTimeBefore() + ":00");
+                timeBefore = dateBefore.toString();
+            } catch (ParseException e) {
+                e.printStackTrace();
+                timeBefore = "23:59:00";
+            }
+            String timeAfter;
+            try {
+                dateAfter = formatter2.parse(formatter.format(date3) + " " +
+                        filters.getTimeAfter() + ":00");
+                timeAfter = dateAfter.toString();
 
+            } catch (ParseException e) {
+                e.printStackTrace();
+                timeAfter = "00:00:00";
+            }
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
-                    String title = element.getElementsByTagName("Title").item(0).getTextContent();
-                    String theatre = element.getElementsByTagName("TheatreAndAuditorium").item(0).getTextContent();
-                    String showDate = element.getElementsByTagName("dttmShowStart").item(0).getTextContent();
+                    String title = element.getElementsByTagName("Title").item(0)
+                            .getTextContent();
+                    String theatre = element.getElementsByTagName("TheatreAndAuditorium")
+                            .item(0).getTextContent();
+                    String showDate = element.getElementsByTagName("dttmShowStart").item(0)
+                            .getTextContent();
+                    String image = element.getElementsByTagName("EventSmallImagePortrait")
+                            .item(0).getTextContent();
                     showDate = showDate.replace("T", " ");
-                    date2 = formatter3.parse(showDate);
+                    Date date2 = formatter3.parse(showDate);
+                    String time = formatter2.format(date2);
 
-                    if (timeAfter.equals("") && timeBefore.equals("")) {
-                        movieList.add("Movie: " + title + "\nTime: " + formatter2.format(date2) + "\nPlace: " + theatre );
+                    // Adding events to eventList based on filters used
+                    if(filters.getMovie().equals("Valitse elokuva")) {
+                       if (timeAfter.equals("00:00:00") && timeBefore.equals("23:59:00")) {
+                           event = new Event(title, image, time, theatre);
+                           eventList.add(event);
+                       } else {
+                            if ((date2.after(dateAfter) || timeAfter.equals("00:00:00")) &&
+                                    (date2.before(dateBefore) || timeBefore.equals("23:59:00")) ) {
+                                event = new Event(title, image, time, theatre);
+                                eventList.add(event);
+                            }
+                        }
                     } else {
-                        if ((date2.after(dateAfter) || timeAfter.equals("")) && (date2.before(dateBefore) || timeBefore.equals("")) ) {
-                            movieList.add("Movie: " + title + "\nTime: " + formatter2.format(date2) + "\nPlace: " + theatre);
+                        if (title.equals(filters.getMovie()) ) {
+                                if ((date2.after(dateAfter) || timeAfter.equals("00:00:00")) &&
+                                        (date2.before(dateBefore) || timeBefore.equals("23:59:00"))) {
+                                    event = new Event(title, image, time, theatre);
+                                    eventList.add(event);
+                            }
                         }
                     }
                 }
             }
-            ArrayAdapter<String> movieAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, movieList);
-            movieAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+
+            // Adding the events in eventList to listview
+            ArrayAdapter<Event> movieAdapter = new ArrayAdapter<Event>(this,
+                    R.layout.list_yellow_text, eventList);
+            movieAdapter.setDropDownViewResource(R.layout.list_yellow_text);
             listViewMovie.setAdapter(movieAdapter);
 
-
+                //Adding clicked events to event list
             listViewMovie.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    String value = movieAdapter.getItem(position);
-                    Toast.makeText(getApplicationContext(),value,Toast.LENGTH_LONG).show();
+                public void onItemClick(AdapterView<?> adapterView, View view, int position,
+                                        long l) {
+
+                    Event event1 = movieAdapter.getItem(position);
+                    if(selectedEventList.stream().anyMatch(o -> o.getName().equals(event1.getName()))) {
+                        String msg1 = "Already added to events.";
+                        Toast.makeText(getApplicationContext(),msg1 ,Toast.LENGTH_LONG).show();
+
+                    } else {
+                        String msg2 = "Movie: " + event1.getName() + "\nTime: " + event1.getTime()
+                                + "\nLocation: " + event1.getLocation() + "\n Added to events.";
+                        Toast.makeText(getApplicationContext(),msg2 ,Toast.LENGTH_LONG).show();
+                        selectedEventList.add(event1);
+                    }
 
                 }
             });
@@ -178,9 +224,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
     }
-
 }
+
 

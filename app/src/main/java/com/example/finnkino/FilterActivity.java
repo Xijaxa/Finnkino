@@ -105,14 +105,21 @@ public class FilterActivity extends AppCompatActivity {
     }
 
     private String makeDateString (int day, int month, int year) {
-        // Make string with format 31.12.2022
+        // Make string with format dd.mm.yyyy
         String monthString;
+        String dayString;
         if (month < 10){
             monthString = "0" + month;  //make all months 02 digits
         } else {
             monthString = "" + month;
         }
-        String date = year + "." + monthString + "." + day ;
+        if (day < 10) {
+            dayString = "0" + day;
+        } else {
+            dayString = "" + day;
+        }
+
+        String date = year + "." + monthString + "." + dayString;
         return date;
     }
 
@@ -136,6 +143,9 @@ public class FilterActivity extends AppCompatActivity {
         String chosenDate = buttonDate.getText().toString();
         String timeBefore = buttonBefore.getText().toString();
         String timeAfter = buttonAfter.getText().toString();
+        if(chosenDate.length() < 10) {
+            chosenDate = "0" + chosenDate;
+        }
         // Put filter values into object for
         filters.setTheaterPosition(spinnerTheater.getSelectedItemPosition());
         filters.setMoviePosition(spinnerMovie.getSelectedItemPosition());

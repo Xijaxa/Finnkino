@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.finnkino.Classes.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

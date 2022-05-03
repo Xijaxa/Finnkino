@@ -1,4 +1,4 @@
-package com.example.finnkino;
+package com.example.finnkino.Classes;
 
 import java.io.Serializable;
 

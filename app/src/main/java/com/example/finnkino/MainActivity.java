@@ -1,26 +1,19 @@
 package com.example.finnkino;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.text.Html;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 
-import android.widget.Toolbar;
-
+import com.example.finnkino.Classes.Event;
+import com.example.finnkino.Classes.Filter;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

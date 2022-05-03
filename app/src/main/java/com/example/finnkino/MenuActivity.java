@@ -4,8 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
+
+import com.example.finnkino.Classes.Event;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.finnkino;
+package com.example.finnkino.Classes;
 
 public class User {
     private String profileName, lastName, email, userName;

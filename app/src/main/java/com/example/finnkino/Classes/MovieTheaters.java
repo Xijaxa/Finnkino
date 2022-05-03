@@ -1,4 +1,4 @@
-package com.example.finnkino;
+package com.example.finnkino.Classes;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

@@ -1,23 +1,21 @@
 package com.example.finnkino;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+
+import com.example.finnkino.Classes.Filter;
+import com.example.finnkino.Classes.Movie;
+import com.example.finnkino.Classes.MovieTheater;
+import com.example.finnkino.Classes.MovieTheaters;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -26,11 +24,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;

@@ -1,4 +1,4 @@
-package com.example.finnkino;
+package com.example.finnkino.Classes;
 
 import android.content.ContentValues;
 import android.content.Context;
